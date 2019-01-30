@@ -25,6 +25,7 @@ public class CheckOrNot : MonoBehaviour
         password.sprite = cross;
         confirmPassword.sprite = cross;
     }
+    
     void OnValueChanged()
     {
         print("Value changed...");
