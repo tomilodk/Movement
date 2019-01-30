@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InstantiateGroups : MonoBehaviour
 {
     public GameObject whereToInstantiate, groupPrefab, createGroupObject;
+    public List<Group> groups = new List<Group>();
 
     private void Start()
-    { 
-
+    {
         float heightOfScrollObject = createGroupObject.GetComponent<RectTransform>().sizeDelta.y + 90;
         foreach(Group g in GetGroups())
         {
@@ -24,24 +25,30 @@ public class InstantiateGroups : MonoBehaviour
 
 
         //Check if the player just has created a group?
-        if(PlayerPrefs.HasKey("newGroupString"))
+        if(PlayerPrefs.HasKey("newGroupName") && PlayerPrefs.HasKey("newGroupDesc") && PlayerPrefs.HasKey("newGroupTimer"))
         {
-            print("just created a group");
-            PlayerPrefs.DeleteKey("newGroupString");
+            groups.Add(new Group(PlayerPrefs.GetString("newGroupName"), 3, groupPrefab));
+
+
+            //Resetting...
+            PlayerPrefs.DeleteKey("newGroupName");
+            PlayerPrefs.DeleteKey("newGroupDesc");
+            PlayerPrefs.DeleteKey("newGroupTimer");
         }
     }
 
+    
+
     private List<Group> GetGroups()
     {
-        List<Group> groups = new List<Group>();
-
+        List<Group> tempGroups = groups;
         groups.Add(new Group("TestGroup", 3, groupPrefab));
         groups.Add(new Group("TestGroup2", 3, groupPrefab));
         groups.Add(new Group("TestGroup3", 3, groupPrefab));
-        groups.Add(new Group("TestGroup4", 3, groupPrefab));
-        groups.Add(new Group("TestGroup5", 3, groupPrefab));
+        //groups.Add(new Group("TestGroup4", 3, groupPrefab));
+        //groups.Add(new Group("TestGroup5", 3, groupPrefab));
 
-        return groups;
+        return tempGroups;
     }
 }
 

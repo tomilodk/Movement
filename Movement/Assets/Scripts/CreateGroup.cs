@@ -6,16 +6,17 @@ using UnityEngine.UI;
 public class CreateGroup : MonoBehaviour
 {
     public InputField iGroupName, iGroupDesc, iGroupDays;
+    public SceneManageScript sMS;
 
     public void CreateButtonPress()
     {
         if(iGroupName.text != "" && iGroupDesc.text != "" && iGroupDays.text != "")
         {
-            
             NewGroup newGroup = new NewGroup(iGroupName.text, iGroupDesc.text, int.Parse(iGroupDays.text));
             PlayerPrefs.SetString("newGroupName", newGroup.groupName);
             PlayerPrefs.SetString("newGroupDesc", newGroup.groupDescription);
             PlayerPrefs.SetInt("newGroupTimer", newGroup.groupDays);
+            sMS.SwitchToMainScreen();
 
         }
         if (iGroupName.text == "")
