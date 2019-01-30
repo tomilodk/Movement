@@ -8,7 +8,8 @@ public class InstantiateGroups : MonoBehaviour
     public GameObject whereToInstantiate, groupPrefab, createGroupObject;
 
     private void Start()
-    {
+    { 
+
         float heightOfScrollObject = createGroupObject.GetComponent<RectTransform>().sizeDelta.y + 90;
         foreach(Group g in GetGroups())
         {
@@ -19,6 +20,14 @@ public class InstantiateGroups : MonoBehaviour
 
             createGroupObject.transform.SetAsLastSibling();
 
+        }
+
+
+        //Check if the player just has created a group?
+        if(PlayerPrefs.HasKey("newGroupString"))
+        {
+            print("just created a group");
+            PlayerPrefs.DeleteKey("newGroupString");
         }
     }
 

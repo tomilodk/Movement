@@ -7,4 +7,9 @@ public class SceneManageScript : MonoBehaviour
     {
         SceneManager.LoadScene("HomeScreen");
     }
+
+    public void SwitchToCreateGroupScreen()
+    {
+        SceneManager.LoadScene("CreateGroup");
+    }
 }
