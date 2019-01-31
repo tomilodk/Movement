@@ -9,6 +9,8 @@ public class InstantiateGroups : MonoBehaviour
     public GameObject whereToInstantiate, groupPrefab, createGroupObject;
     public List<Group> groups = new List<Group>();
 
+    public Text groupName;
+
     private void Start()
     {
         float heightOfScrollObject = createGroupObject.GetComponent<RectTransform>().sizeDelta.y + 90;
@@ -42,13 +44,26 @@ public class InstantiateGroups : MonoBehaviour
     private List<Group> GetGroups()
     {
         List<Group> tempGroups = groups;
-        groups.Add(new Group("TestGroup", 3, groupPrefab));
+        groups.Add(new Group("TestGroup1", 2, groupPrefab));
         groups.Add(new Group("TestGroup2", 3, groupPrefab));
         groups.Add(new Group("TestGroup3", 3, groupPrefab));
         //groups.Add(new Group("TestGroup4", 3, groupPrefab));
         //groups.Add(new Group("TestGroup5", 3, groupPrefab));
 
         return tempGroups;
+    }
+
+
+
+
+    public GameObject exerciseButton;
+    public void OnClick( Text text)
+    {
+        groupName.text = text.text;
+        groupName.transform.parent.parent.gameObject.SetActive(true);
+        exerciseButton.SetActive(true);
+        print("test");
+
     }
 }
 

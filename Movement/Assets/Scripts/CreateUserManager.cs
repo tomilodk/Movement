@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CheckOrNot : MonoBehaviour
+public class CreateUserManager : MonoBehaviour
 {
     public Sprite check, cross;
     public Image username, password, confirmPassword;
 
     public InputField user, pas, conPas;
 
+    public string url;
 
     void Start()
     {
@@ -28,7 +29,6 @@ public class CheckOrNot : MonoBehaviour
     
     void OnValueChanged()
     {
-        print("Value changed...");
         if (user.text != "")
         {
             username.sprite = check;
@@ -61,11 +61,33 @@ public class CheckOrNot : MonoBehaviour
     {
         if(username.sprite == check && password.sprite == check && confirmPassword.sprite == check)
         {
-            print("Username: " + user.text + ", Password: " + pas.text);
+            StartCoroutine(ReachSite());
         }
         else
         {
             print("Fill the form out correctly :)");
+        }
+    }
+
+    private IEnumerator ReachSite()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("username", user.text);
+        form.AddField("password", pas.text);
+
+        WWW www = new WWW(url, form);
+
+        yield return www;
+
+
+        if(www.text == "0")
+        {
+            print("User created successfully :)");
+            
+        }
+        else
+        {
+            print(www.text);
         }
     }
 
